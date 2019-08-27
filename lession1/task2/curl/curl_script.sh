@@ -1,0 +1,11 @@
+curl --request GET \
+  --url 'https://www.amdoren.com/api/weather.php?api_key=7DnFYJiKbMwnRDzyE9mhyAPKHUVwT7&lat=40.7127837&lon=-74.0059413' \
+  --header 'Accept: */*' \
+  --header 'Accept-Encoding: gzip, deflate' \
+  --header 'Cache-Control: no-cache' \
+  --header 'Connection: keep-alive' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --header 'Host: www.amdoren.com' \
+  --header 'Postman-Token: 52be027a-d336-497c-b00d-96cc9ff32756,8f8c0b4e-37b6-4655-8e87-16beee3f4bbd' \
+  --header 'User-Agent: PostmanRuntime/7.15.2' \
+  --header 'cache-control: no-cache'

@@ -1,0 +1,12 @@
+GET /api/weather.php?api_key=7DnFYJiKbMwnRDzyE9mhyAPKHUVwT7&amp; lat=40.7127837&amp; lon=-74.0059413 HTTP/1.1
+Host: www.amdoren.com
+User-Agent: PostmanRuntime/7.15.2
+Accept: */*
+Cache-Control: no-cache
+Postman-Token: 52be027a-d336-497c-b00d-96cc9ff32756,cf2d72cc-9811-4de4-b251-e057ecf2dfa4
+Host: www.amdoren.com
+Content-Type: application/x-www-form-urlencoded
+Accept-Encoding: gzip, deflate
+Connection: keep-alive
+cache-control: no-cache
+

@@ -1,0 +1,6 @@
+В качестве подопытного API использовался Amdoren Weather API
+Ссылка на сайте programmableWeb: https://www.programmableweb.com/api/amdoren-weather
+
+Для работы с curl использовался bash-script с перенаправлением в json-файл
+Для работы с postman использовался вывод ответа в json-файл, сам запрос приведен к HTML-виду и сохранен в txt-файл
+Для работы с Python использовался модуль requests с сохранением ответа в json-файл.
