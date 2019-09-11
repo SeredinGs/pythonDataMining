@@ -1,20 +1,24 @@
+# модуль для работы с headhunter-om
 from base import requestor
 import re
 import requests
 from bs4 import BeautifulSoup as bs
 
+# создаем класс, который будет наследником базового класса
 class headhunter(requestor):
     def __init__(self):
+        # а конструктор базовый класс не завещал, переинициализируем по-новому
         self.requestor = requestor()
         self.web_hh = 'https://hh.ru/search/vacancy?'
         self.paramsadditional = {}
         self.params = {}
         self.headers = self.requestor.headers
-        print('Успех')
 
+    # Метод для подтверждения принятия параметров для get-запроса
     def applyparams(self, name_vac):
         self.params = {"L_is_autosearch": "false", "area": "1", "clusters": "true", "text": name_vac}
 
+    # функция для запроса содержимого страницы. возвращает итоговую ссылку и содержимое
     def get_body_hh(self,params):
         page = requests.get(self.web_hh, headers=self.headers, params=params)
         result = page.text
@@ -24,6 +28,7 @@ class headhunter(requestor):
         # print(link)
         return link, result
 
+    # формирование общих списоков и создание датафрейма
     def form_list_hh(self, num_pages):
         names = []
         linki = []
@@ -35,6 +40,7 @@ class headhunter(requestor):
         for page in num_pages:
             self.paramsadditional = {"page": page}
             self.letsroll()
+            print('HH: читаю страницу {}'.format(page))
             url, body = self.get_body_hh(self.params)
             name, vlink, min, max, istochnik = self.get_vacs_HH(body)
             names = names + name
@@ -42,8 +48,9 @@ class headhunter(requestor):
             mins = mins + min
             maxs = maxs + max
             istochniki = istochniki + istochnik
-        return names, linki, mins, maxs, istochniki
+        return self.create_dataframe(names, linki, mins, maxs, istochniki)
 
+    # функция для скрапинга страницы
     def get_vacs_HH(self, page):
         list_names = []
         list_links = []

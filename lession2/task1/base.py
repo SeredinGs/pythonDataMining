@@ -6,7 +6,6 @@ class requestor:
     def __init__(self):
         self.headers = {"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
                              "Chrome/76.0.3809.132 Safari/537.36 OPR/63.0.3368.71"}
-        print('Успех')
 
     # Функция создания датафрейма из кучи списков. Нужно для экспорта в Эксель
     def create_dataframe(self, names, linki, mins, maxs, istochniki):
@@ -20,6 +19,7 @@ class requestor:
     def export_to_excel(self, dataframe1, dataframe2):
         result = pd.concat([dataframe1, dataframe2])
         result.to_excel('report.xlsx', index=False)
+        print('Файл {} получен!'.format('report.xlsx'))
 
     # По ходу скрапинга будут приходить новые параметры для get-запроса. Эта функция мёржит текущий словарь запросов с
     # вновь прибывшим

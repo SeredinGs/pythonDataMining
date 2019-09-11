@@ -19,9 +19,7 @@ if __name__ == '__main__':
     sj.applyparams(name_vac)
     hh.applyparams(name_vac)
 
-    names, linki, mins, maxs, istochniki = hh.form_list_hh(num_pages)
-    reporthh = hh.create_dataframe(names, linki, mins, maxs, istochniki)
-
+    reporthh = hh.form_list_hh(num_pages)
     df_na_export = sj.form_lists(num_pages)
 
     sj.export_to_excel(df_na_export, reporthh)
