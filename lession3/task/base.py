@@ -1,5 +1,6 @@
 # базовый класс для наших сценариев
 import pandas as pd
+from pymongo import MongoClient
 
 class requestor:
     # Конструктор. Берем заголовки, они для обоих классов одинаковы
@@ -25,6 +26,37 @@ class requestor:
     # вновь прибывшим
     def letsroll(self):
         self.params = {**self.params, **self.paramsadditional}
+
+    def inserttomonga(self, name_vac, names, linki, mins, maxs, istochniki):
+        client = MongoClient('localhost', 27017)
+        db = client.vacancy
+        col = db[name_vac]
+
+        # print(type(new_posts))
+        # # raise Exception
+
+        dic = {"name": None, "linka": None, "min": None, "max": None, "source": None}
+        total_list = list()
+        for l1, l2, l3, l4, l5 in zip(names, linki, mins, maxs, istochniki):
+            dic["name"] = l1
+            dic["linka"] = l2
+            if l3 == 'Не указано' or l3 == '':
+                l3 = 0
+                dic["min"] = int(l3)
+            else:
+                dic["min"] = int(l3)
+            if l4 == '':
+                l4 = 0
+                dic["max"] = int(l4)
+            else:
+                dic["max"] = int(l4)
+            dic["source"] = l5
+            # print(dic)
+            total_list.append(dic.copy())
+        print(total_list)
+
+        col.insert_many(total_list)
+
 
 # Заглушка до лучших времен
 if __name__ == '__main__':

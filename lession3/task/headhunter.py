@@ -3,6 +3,7 @@ from base import requestor
 import re
 import requests
 from bs4 import BeautifulSoup as bs
+import time
 
 # создаем класс, который будет наследником базового класса
 class headhunter(requestor):
@@ -50,8 +51,31 @@ class headhunter(requestor):
             istochniki = istochniki + istochnik
         return self.create_dataframe(names, linki, mins, maxs, istochniki)
 
-    # функция для скрапинга страницы
+    # формирование общих списоков и для экспорта в монгу
+    def form_list_hh_monga(self, num_pages):
+        names = []
+        linki = []
+        mins = []
+        maxs = []
+        istochniki = []
+
+        # try:
+        for page in num_pages:
+            self.paramsadditional = {"page": page}
+            self.letsroll()
+            print('HH: читаю страницу {}'.format(page))
+            url, body = self.get_body_hh(self.params)
+            name, vlink, min, max, istochnik = self.get_vacs_HH(body)
+            names = names + name
+            linki = linki + vlink
+            mins = mins + min
+            maxs = maxs + max
+            istochniki = istochniki + istochnik
+        return names, linki, mins, maxs, istochniki
+
+    # функция для скрапинга страницы. Ставим слипы для подстраховки
     def get_vacs_HH(self, page):
+        time.sleep(5)
         list_names = []
         list_links = []
         list_minzp = []

@@ -4,6 +4,7 @@ import requests
 from pprint import pprint
 import re
 from bs4 import BeautifulSoup as bs
+import time
 
 # создаем класс, который будет наследником базового класса
 class superjob(requestor):
@@ -33,8 +34,9 @@ class superjob(requestor):
         return link
 
 
-    # функция скраппинга
+    # функция скраппинга. Ставим слипы для подстраховки
     def get_vacs(self, web, headers, params):
+        time.sleep(5)
         list_names = []
         list_links = []
         list_minzp = []
@@ -130,3 +132,32 @@ class superjob(requestor):
             pass
         df = self.create_dataframe(names, linki, mins, maxs, istochniki)
         return df
+
+    # объединяем полученные из скрапинга списки в общие списки для отправки в монгу
+    def form_lists_monga(self, num_pages):
+        # print(blocki)
+        url = self.get_body(self.web_sj, self.headers, self.params)
+
+        names = []
+        linki = []
+        mins = []
+        maxs = []
+        istochniki = []
+        self.web_sj = url
+
+        try:
+            for num_page in num_pages:
+                self.params = {"page": str(num_page)}
+                print('SJ: читаю страницу {}'.format(num_page))
+                name, vlink, min, max, istochnik = self.get_vacs(self.web_sj, self.headers, self.params)
+                names = names + name
+                linki = linki + vlink
+                mins = mins + min
+                maxs = maxs + max
+                istochniki = istochniki + istochnik
+                # istochniki_ser = np.array(istochniki_ser, istochnik)
+        except AttributeError:
+            print('Чтение окончено')
+            pass
+        return names, linki, mins, maxs, istochniki
+

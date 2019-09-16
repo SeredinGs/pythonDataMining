@@ -7,8 +7,8 @@ import sys
 if __name__ == '__main__':
     name_vac = sys.argv[1]
     list_num = []
-    pages = list(sys.argv[2])
-    num_pages = [pages[x] for x in range(0, len(pages), 2)]
+    count_pages = sys.argv[2]
+    num_pages = [x for x in range(0, int(count_pages)+1)]
     print('Ищу вакансии для профессии {}, по страницам {}'.format(name_vac, num_pages))
 
     # params = {"keywords": name_vac}
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     sj.applyparams(name_vac)
     hh.applyparams(name_vac)
 
-    reporthh = hh.form_list_hh(num_pages)
-    df_na_export = sj.form_lists(num_pages)
-
-    sj.export_to_excel(df_na_export, reporthh)
+    names, linki, mins, maxs, istochniki = hh.form_list_hh_monga(num_pages)
+    hh.inserttomonga(name_vac, names, linki, mins, maxs, istochniki)
+    names, linki, mins, maxs, istochniki = sj.form_lists_monga(num_pages)
+    sj.inserttomonga(name_vac, names, linki, mins, maxs, istochniki)
