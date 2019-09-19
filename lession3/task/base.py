@@ -27,6 +27,7 @@ class requestor:
     def letsroll(self):
         self.params = {**self.params, **self.paramsadditional}
 
+    # Функция для добавления списков в монгу
     def inserttomonga(self, name_vac, names, linki, mins, maxs, istochniki):
         client = MongoClient('localhost', 27017)
         db = client.vacancy
@@ -54,8 +55,21 @@ class requestor:
             # print(dic)
             total_list.append(dic.copy())
         print(total_list)
-
         col.insert_many(total_list)
+
+    # функция поиска максимальной зп
+    def get_max(self, name_vac, zp):
+        print("Ищу максимальную зарплату по вакансии {} с зп {}".format(name_vac, zp))
+        client = MongoClient('localhost', 27017)
+        db = client.vacancy
+        col = db[name_vac]
+        minzps = col.find({"min": {"$gt": int(zp)}}).sort("name")
+        for i in minzps:
+            print(i)
+        maxzps = col.find({"max": {"$gt": int(zp)}}).sort("name")
+        for i in maxzps:
+            print(i)
+
 
 
 # Заглушка до лучших времен
