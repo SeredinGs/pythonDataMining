@@ -10,6 +10,8 @@ class JobparserPipeline(object):  #pipeline (обработчик) item'ов
     def __init__(self):     #Инициализируем подключение к монго
         client = MongoClient('localhost', 27017)
         self.mongo_base = client.vacancy #Создаем БД
+        # парсим зп
+
 
     def process_item(self, item, spider): #обрабатываем наш item
         collection = self.mongo_base[spider.name] #создаем коллекцию по имени паука
