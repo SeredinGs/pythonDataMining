@@ -15,7 +15,9 @@ SPIDER_MODULES = ['jobparser.spiders']
 NEWSPIDER_MODULE = 'jobparser.spiders'
 
 LOG_ENABLED = True
-LOG_LEVEL = 'ERROR'
+LOG_LEVEL = 'DEBUG'
+
+#REDIRECT_ENABLED = True
 # LOG_FILE = 'jobparser_logs.txt'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -53,9 +55,12 @@ COOKIES_ENABLED = True
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'jobparser.middlewares.JobparserSpiderMiddleware': 543,
-#}
+# Добавим миддлвары на редирект
+# SPIDER_MIDDLEWARES = {
+#     'jobparser.middlewares.JobparserSpiderMiddleware': 543,
+#     'scrapy.downloadermiddlewares.redirect.MetaRefreshMiddleware': 580,
+#     'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': 600,
+# }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
