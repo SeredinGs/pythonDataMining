@@ -6,9 +6,10 @@ import re
 
 
 class HhruSpider(scrapy.Spider):
+    print('HH запустился')
     name = 'hhru'
     allowed_domains = ['hh.ru']
-    start_urls = ['https://hh.ru/search/vacancy?text=python&area=113&st=searchVacancy']
+    start_urls = ['https://hh.ru/search/vacancy?text=python&area=113&st=searchVacancy'] # имя вакансии вводим тут
 # заметил фичу: если текст в параметре text совпадает с частью имени в вакансии, то этот текст захватывается в отдельный span
 
     def parse(self, response: HtmlResponse):  # Метод парсинга - точка входа для паука
@@ -36,7 +37,7 @@ class HhruSpider(scrapy.Spider):
         salary = response.css('div.vacancy-title p.vacancy-salary::text').extract_first()  # Зарплата
         min_sal, max_sal = self.parse_salara(salary)
         url = response.url
-        # Сделаем примитивный вывод для показывающий результат
+        # Сделаем примитивный вывод показывающий результат
         #print('name = {}, salary = {}, min_sal = {}, max_sal = {}, url = {}'.format(name, salary, min_sal, max_sal, url))
         yield JobparserItem(name=name_vac, min_salary=min_sal, max_salary=max_sal, link=url, source='HH')  # Передаем сформированный item в pipeline
 

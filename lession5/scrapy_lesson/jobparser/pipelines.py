@@ -16,4 +16,5 @@ class JobparserPipeline(object):  #pipeline (обработчик) item'ов
     def process_item(self, item, spider): #обрабатываем наш item
         collection = self.mongo_base[spider.name] #создаем коллекцию по имени паука
         collection.insert_one(item) #Добавляем item в коллекцию
+        print('записал в монгу')
         return item
