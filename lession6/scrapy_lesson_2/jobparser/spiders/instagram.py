@@ -19,10 +19,10 @@ class InstagramSpider(scrapy.Spider):
 
     def __init__(self, user_links, login, pswrd, *args, **kwargs):
         self.user_links = user_links
-        self.login = 'tukanikuvus'
-        self.pswrd = 'tukantukan'
-        # self.login = login
-        # self.pswrd = pswrd
+        # self.login = 'tukanikuvus'
+        # self.pswrd = 'tukantukan'
+        self.login = login
+        self.pswrd = pswrd
         #self.query_hash = 'c76146de99bb02f6415203be841dd25a' #Секретный хеш :) и в нём хранится только инфа о подписчиках :(
         self.query_hash = '58b6785bea111c67129decbe6a448951' # хэш, который перенаправляет в пространство с постами
         super().__init__(*args,**kwargs)  #Супер класс

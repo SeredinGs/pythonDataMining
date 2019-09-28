@@ -8,7 +8,7 @@ from jobparser import settings
 from jobparser.spiders.hhru import HhruSpider
 from jobparser.spiders.instagram import InstagramSpider
 
-do_env = join(dirname(__file__), '.env')
+do_env = join(dirname(__file__), '.env') # из venv метод не читается, пришлось .env перенести в корень
 load_dotenv(do_env)
 
 #Загружаем переменные из окружения
