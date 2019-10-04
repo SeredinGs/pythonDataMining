@@ -18,26 +18,20 @@ driver = webdriver.Firefox(executable_path='.\\geckodriver.exe')
 
 driver.get('https://www.mvideo.ru')
 
-# knopochki = driver.find_elements_by_xpath('//div[@class="gallery-layout"]/div[@class="section"]/div[@class="gallery-layout sel-hits-block"]/*/div[@class="carousel-paging"]')
-#knopochki = driver.find_elements_by_xpath('//div[@class="carousel-paging"]/a')
-'''
-knopochki = driver.find_elements_by_css_selector('div.gallery-layout div.section div.gallery-layout.sel-hits-block div.gallery-content.accessories-new div.accessories-carousel-holder.carousel.tabletSwipe div.carousel-paging a')
-print('d')
+menu = driver.find_elements_by_css_selector("div.gallery-layout div.section div.gallery-layout.sel-hits-block div.gallery-content.accessories-new div.accessories-carousel-holder.carousel.tabletSwipe a[href^='#']")
 
-for knopko in knopochki:
-    knopko.click()
-   '''
-menu = driver.find_element_by_css_selector("div.gallery-layout div.section div.gallery-layout.sel-hits-block div.gallery-content.accessories-new")
-#sleep(5)
-hidden_submenu = driver.find_element_by_css_selector("a.next-btn.sel-hits-button-next")
+i = 0
 
-driver.execute_script("window.scrollTo(0, 894);")
-actions = ActionChains(driver)
-actions.move_to_element(menu)
-actions.perform()
-sleep(5)
-actions.click(hidden_submenu)
-actions.click(hidden_submenu)
-actions.click(hidden_submenu)
-sleep(2)
-actions.perform()
+for knopko in menu:
+    if i < 7:
+        sleep(3)
+        knopko.click()
+        if i >=2:
+            print('parse blocks')
+            i += 1
+            print(i)
+        else:
+            i+=1
+            print(i)
+    else:
+        break
