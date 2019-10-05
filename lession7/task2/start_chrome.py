@@ -2,9 +2,17 @@ import time
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from time import sleep
+from selenium.webdriver.common.keys import Keys
 from pymongo import MongoClient
+from selenium.webdriver.chrome.options import Options
 
-driver = webdriver.Chrome('.\\chromedriver.exe')  # Optional argument, if not specified will search path.
+# Опшионсы
+chrome_options = Options()
+chrome_options.add_argument("--window-size=1920,1080")
+
+# загрузка драйвера с Опшионсом и без, для проверки
+driver = webdriver.Chrome('.\\chromedriver.exe',chrome_options=chrome_options)  # Optional argument, if not specified will search path.
+# driver = webdriver.Chrome('.\\chromedriver.exe')
 driver.get('https://www.mvideo.ru')
 
 
@@ -23,7 +31,7 @@ menu = driver.find_elements_by_css_selector("div.gallery-layout div.section div.
 i = 0
 for knopko in menu:
     if i < 8:
-        sleep(3)
+        sleep(5)
         knopko.click()
         if i >=3:
             name = driver.find_elements_by_class_name("sel-product-tile-title")
